@@ -104,12 +104,12 @@ const xMinData = Math.min(...xValues);
 const xMaxData = Math.max(...xValues);
 const yMinData = Math.min(...yValues);
 const yMaxData = Math.max(...yValues);
-const xPadding = (xMaxData - xMinData) * 0.1;
-const yPadding = (yMaxData - yMinData) * 0.1;
-const xMinPlot = xMinData - xPadding;
-const xMaxPlot = xMaxData + xPadding;
-const yMinPlot = yMinData - yPadding;
-const yMaxPlot = yMaxData + yPadding;
+const xTickStep = 25;
+const yTickStep = 1;
+const xMinPlot = 0;
+const xMaxPlot = Math.ceil(xMaxData / xTickStep) * xTickStep;
+const yMinPlot = 0;
+const yMaxPlot = Math.ceil(yMaxData / yTickStep) * yTickStep;
 
 function dataToCanvasX(x) {
   return margin.left + ((x - xMinPlot) / (xMaxPlot - xMinPlot)) * plotWidth;
@@ -132,8 +132,33 @@ function drawPlot() {
   ctx.stroke();
 
   ctx.fillStyle = "#333";
+  ctx.font = "12px Arial";
+  ctx.textAlign = "center";
+
+  for (let xTick = xMinPlot; xTick <= xMaxPlot; xTick += xTickStep) {
+    const xPos = dataToCanvasX(xTick);
+    ctx.beginPath();
+    ctx.moveTo(xPos, canvasHeight - margin.bottom);
+    ctx.lineTo(xPos, canvasHeight - margin.bottom + 6);
+    ctx.stroke();
+    ctx.fillText(xTick.toString(), xPos, canvasHeight - margin.bottom + 20);
+  }
+
+  ctx.textAlign = "right";
+  ctx.textBaseline = "middle";
+  for (let yTick = yMinPlot; yTick <= yMaxPlot; yTick += yTickStep) {
+    const yPos = dataToCanvasY(yTick);
+    ctx.beginPath();
+    ctx.moveTo(margin.left - 6, yPos);
+    ctx.lineTo(margin.left, yPos);
+    ctx.stroke();
+    ctx.fillText(yTick.toString(), margin.left - 10, yPos);
+  }
+
+  ctx.fillStyle = "#333";
   ctx.font = "14px Arial";
   ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
   ctx.fillText("Area (kvm)", margin.left + plotWidth / 2, canvasHeight - 20);
   ctx.save();
   ctx.translate(20, margin.top + plotHeight / 2);
