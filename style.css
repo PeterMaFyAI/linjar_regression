@@ -1,0 +1,105 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #f7f7f7;
+}
+
+h1 {
+  color: #222;
+}
+
+h2 {
+  color: #333;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+}
+
+.table-container {
+  flex: 1;
+  max-height: 600px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: right;
+}
+
+table th {
+  background: #007acc;
+  color: #fff;
+  text-align: center;
+}
+
+.plot-container {
+  flex: 2;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#plotCanvas {
+  background: #fafafa;
+  border: 1px solid #ccc;
+  display: block;
+  margin: 0 auto;
+}
+
+.controls {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.control-group {
+  margin-bottom: 10px;
+}
+
+.control-group label {
+  margin-right: 5px;
+}
+
+.equation,
+.error {
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.equation.blue {
+  color: blue;
+}
+
+.equation.green {
+  color: green;
+}
+
+.error.red {
+  color: red;
+}
+
+.prediction {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.prediction input {
+  width: 80px;
+  padding: 3px;
+}
