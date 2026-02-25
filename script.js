@@ -212,7 +212,7 @@ function drawPlot() {
         ctx.stroke();
       });
       ctx.setLineDash([]);
-      lineErrorElem.textContent = `Medelfel RMSE(w, b) = ${calculateRmse(k, m).toFixed(3)}`;
+      lineErrorElem.textContent = `RMSE(w, b) = ${calculateRmse(k, m).toFixed(3)}`;
     } else {
       lineErrorElem.textContent = "";
     }
