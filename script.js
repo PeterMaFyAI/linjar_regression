@@ -214,7 +214,7 @@ function drawPlot() {
       ctx.setLineDash([]);
       lineErrorElem.textContent = `Medelfel RMSE(w, b) = ${calculateRmse(k, m).toFixed(3)}`;
     } else {
-      lineErrorElem.textContent = "Medelfel RMSE(w, b) = -";
+      lineErrorElem.textContent = "";
     }
   } else {
     lineEquationElem.textContent = "";
