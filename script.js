@@ -239,7 +239,7 @@ function drawPlot() {
     const mOpt = (sumY - kOpt * sumX) / n;
 
     const rmseOpt = calculateRmse(kOpt, mOpt);
-    optimalEquationElem.innerHTML = `Optimal linje: y = ${kOpt.toFixed(3)}x + ${mOpt.toFixed(2)} <span class="error red">RMSE(w, b) = ${rmseOpt.toFixed(3)}</span>`;
+    optimalEquationElem.innerHTML = `Optimal linje: y = ${kOpt.toFixed(3)}x + ${mOpt.toFixed(2)}<br><span class="error red">RMSE(w, b) = ${rmseOpt.toFixed(3)}</span>`;
 
     ctx.strokeStyle = "green";
     ctx.lineWidth = 2;
@@ -256,12 +256,12 @@ function drawPlot() {
 
 function updatePrediction() {
   if (!doPredictionCheckbox.checked) {
-    predictionGroup.style.display = "none";
+    predictionGroup.classList.add("hidden");
     predictedPriceElem.textContent = "";
     return;
   }
 
-  predictionGroup.style.display = "flex";
+  predictionGroup.classList.remove("hidden");
   const areaVal = parseFloat(predictionInput.value);
   if (!Number.isNaN(areaVal)) {
     const k = parseFloat(kSlider.value);

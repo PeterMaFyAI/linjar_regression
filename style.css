@@ -95,6 +95,12 @@ table th {
   margin-left: 10px;
 }
 
+#lineEquation,
+#lineError,
+#optimalEquation {
+  min-height: 1.2em;
+}
+
 .equation.blue {
   color: blue;
 }
@@ -108,14 +114,27 @@ table th {
 }
 
 .prediction {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.prediction.hidden {
+  visibility: hidden;
 }
 
 .prediction input {
   width: 80px;
   padding: 3px;
+}
+
+
+.line-panel {
+  min-height: 220px;
+}
+
+.analysis-panel {
+  min-height: 220px;
 }
 
 @media (max-width: 900px) {
