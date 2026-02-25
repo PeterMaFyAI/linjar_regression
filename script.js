@@ -119,6 +119,15 @@ function dataToCanvasY(y) {
   return canvasHeight - margin.bottom - ((y - yMinPlot) / (yMaxPlot - yMinPlot)) * plotHeight;
 }
 
+function calculateRmse(weight, bias) {
+  const squaredErrorSum = dataPoints.reduce((sum, point) => {
+    const predictedY = weight * point.area + bias;
+    return sum + (predictedY - point.price) ** 2;
+  }, 0);
+
+  return Math.sqrt(squaredErrorSum / dataPoints.length);
+}
+
 function drawPlot() {
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -189,13 +198,11 @@ function drawPlot() {
     ctx.stroke();
 
     if (showErrorCheckbox.checked) {
-      let totalError = 0;
       ctx.strokeStyle = "red";
       ctx.lineWidth = 1;
       ctx.setLineDash([5, 5]);
       dataPoints.forEach((p) => {
         const predY = k * p.area + m;
-        totalError += (predY - p.price) ** 2;
         const xPixel = dataToCanvasX(p.area);
         const yActual = dataToCanvasY(p.price);
         const yPred = dataToCanvasY(predY);
@@ -205,9 +212,9 @@ function drawPlot() {
         ctx.stroke();
       });
       ctx.setLineDash([]);
-      lineErrorElem.textContent = `Fel(k, m) = ${totalError.toFixed(3)}`;
+      lineErrorElem.textContent = `Medelfel RMSE(w, b) = ${calculateRmse(k, m).toFixed(3)}`;
     } else {
-      lineErrorElem.textContent = "Fel(k, m) = -";
+      lineErrorElem.textContent = "Medelfel RMSE(w, b) = -";
     }
   } else {
     lineEquationElem.textContent = "";
@@ -231,12 +238,8 @@ function drawPlot() {
     const kOpt = (n * sumXY - sumX * sumY) / (n * sumXX - sumX ** 2);
     const mOpt = (sumY - kOpt * sumX) / n;
 
-    let totalErrorOpt = 0;
-    dataPoints.forEach((p) => {
-      const predY = kOpt * p.area + mOpt;
-      totalErrorOpt += (predY - p.price) ** 2;
-    });
-    optimalEquationElem.innerHTML = `Optimal linje: y = ${kOpt.toFixed(3)}x + ${mOpt.toFixed(2)} <span class="error red">Fel(k, m) = ${totalErrorOpt.toFixed(3)}</span>`;
+    const rmseOpt = calculateRmse(kOpt, mOpt);
+    optimalEquationElem.innerHTML = `Optimal linje: y = ${kOpt.toFixed(3)}x + ${mOpt.toFixed(2)} <span class="error red">RMSE(w, b) = ${rmseOpt.toFixed(3)}</span>`;
 
     ctx.strokeStyle = "green";
     ctx.lineWidth = 2;
