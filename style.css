@@ -63,8 +63,22 @@ table th {
 .controls {
   margin-top: 15px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 16px;
+}
+
+.control-panel {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px;
+  background: #fafafa;
+}
+
+.control-panel h3 {
+  margin: 0 0 10px;
+  color: #333;
+  font-size: 16px;
 }
 
 .control-group {
@@ -102,4 +116,10 @@ table th {
 .prediction input {
   width: 80px;
   padding: 3px;
+}
+
+@media (max-width: 900px) {
+  .controls {
+    flex-direction: column;
+  }
 }
